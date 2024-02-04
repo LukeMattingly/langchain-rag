@@ -21,7 +21,7 @@ code_prompt = PromptTemplate(
 )
 
 test_prompt = PromptTemplate(
-    template="Write a test for the following {language} code:\n {code}",
+    template="Write a code test for the following {language} code:\n {code}",
     input_variables=["code"]
 )
 
@@ -48,4 +48,8 @@ result = chain({
     "task":args.task
 })
 
-print(result)
+print("GENERATED CODE>>>>>")
+print(result["code"])
+
+print("GENERATED TEST>>>>>")
+print(result["test"])
