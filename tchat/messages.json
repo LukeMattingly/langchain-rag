@@ -1,0 +1,20 @@
+[
+  {
+    "type": "human",
+    "data": {
+      "content": "store my messages",
+      "additional_kwargs": {},
+      "type": "human",
+      "example": false
+    }
+  },
+  {
+    "type": "ai",
+    "data": {
+      "content": "I'm sorry, but as an AI language model, I don't have the capability to store or retain any messages or personal information. My purpose is to provide information and assist with answering questions to the best of my abilities.",
+      "additional_kwargs": {},
+      "type": "ai",
+      "example": false
+    }
+  }
+]
