@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-chat = ChatOpenAI(temperature=0)
+chat = ChatOpenAI()
 
 embeddings = OpenAIEmbeddings()
 
@@ -23,5 +23,5 @@ chain = RetrievalQA.from_chain_type(
     chain_type="stuff",
 )
 
-result = chain.run("what is an interesting fact about the english language")
+result = chain.run("tell me a fact abou the original star spangled banner")
 print(result)

@@ -16,7 +16,7 @@ text_splitter = CharacterTextSplitter(
     chunk_overlap=0
 )
 
-docs = loader.load_and_split(text_splitter)   
+docs = loader.load_and_split(text_splitter=text_splitter)   
 
 db = Chroma.from_documents(docs, 
                            embeddings, 
