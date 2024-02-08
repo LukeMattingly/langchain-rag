@@ -48,6 +48,7 @@ urllib3 = "==2.1.0"
 yarl = "==1.9.4"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"

@@ -23,6 +23,7 @@ retriever = RedundantFilterRetriever(
     chroma=db,
 )
 
+
 chain = RetrievalQA.from_chain_type(
     llm=chat,
     retriever=retriever,
