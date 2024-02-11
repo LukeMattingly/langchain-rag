@@ -7,10 +7,14 @@ from dotenv import load_dotenv
 
 from tools.sql import run_query_tool, list_tables, describe_tables_tool
 from tools.report import write_report_tool
+from handlers.chat_model_start_handler import ChatModelStartHandler
 
 load_dotenv()
 
-chat = ChatOpenAI()
+handler = ChatModelStartHandler()
+chat = ChatOpenAI(
+    callbacks = [handler]
+)
 
 tables = list_tables()
 
@@ -18,7 +22,7 @@ prompt = ChatPromptTemplate(
     messages=[
         SystemMessage(content=
                       ("You are an AI that has access to a SQLite Database. \n"
-                       f"You can run queries against the database. here are the tables:\n {tables}"
+                       f"You can run queries against the database. here are the tables:\n {tables} \n"
                        "Do not make any assumptions about what tables exist "
                        "or what columns exit. Instead, use the 'describe_tables' function"
                        )),
