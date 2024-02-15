@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
+import os 
 from app.web.db import db, init_db_command
 from app.web.db import models
 from app.celery import celery_init_app
@@ -19,12 +20,20 @@ def create_app():
     app = Flask(__name__, static_folder="../../client/build")
     app.url_map.strict_slashes = False
     app.config.from_object(Config)
+    # Configure MIME types
+    app.config['MIME_TYPES'] = {
+        '.js': 'application/javascript',
+        # Add other MIME types if needed
+    }
+    app.static_folder = '../../client/build/static'
+    app.static_url_path = '/static'
+    app.debug = True
 
     register_extensions(app)
     register_hooks(app)
     register_blueprints(app)
-    if Config.CELERY["broker_url"]:
-        celery_init_app(app)
+    # Check if REDIS_URI environment variable is set
+    celery_init_app(app)
 
     return app
 
