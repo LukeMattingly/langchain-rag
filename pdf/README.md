@@ -160,3 +160,16 @@ Then:
 ```
 flask --app app.web init-db
 ```
+
+================
+
+1. cd to pdf folder, then do the pipenv shell
+2. inv dev
+3. new terminal, another pipenv shell
+4. inv dev worker in that shell
+5. if you don't have redis running.
+   a) install redis on wsl
+   https://redis.io/docs/install/install-redis/install-redis-on-windows/
+   b) edit the redis.conf file and set bind 0.0.0.0
+   c) restart redis service(sudo service redis-server stop) then start
+   d) start up the dev worker

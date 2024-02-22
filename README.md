@@ -31,3 +31,7 @@ source .venv/bin/activate
 # Install dependencies
 
 pip install -r requirements.txt
+
+===========================
+
+Check the readme per project
