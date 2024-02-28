@@ -26,13 +26,9 @@ def create_embeddings_for_pdf(pdf_id: str, pdf_path: str):
 
     #if you have issue with the below printing, then can try this 
     #sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8') 
-    
-    for doc in docs:
-        try:
-            print(doc.page_content)
-        except UnicodeEncodeError:
-            print("UnicodeEncodeError")
-    
 
+    
+    print("about to add docs to vector store")
     vector_store.add_documents(docs)
+    print("completed vector store document add")
 
