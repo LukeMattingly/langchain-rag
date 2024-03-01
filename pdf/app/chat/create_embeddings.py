@@ -24,6 +24,13 @@ def create_embeddings_for_pdf(pdf_id: str, pdf_path: str):
     loader = PyPDFLoader(pdf_path)
     docs = loader.load_and_split(text_splitter)
 
+    for doc in docs:
+        doc.metadata = {
+            "page": doc.metadata["page"],
+            "pdf_id": pdf_id,
+            "text": doc.page_content,
+        }
+
     #if you have issue with the below printing, then can try this 
     #sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8') 
 
