@@ -6,18 +6,25 @@ from dotenv import load_dotenv
 from queue import Queue
 from threading import Thread
 
+
 load_dotenv()
 
 queue = Queue()
 
 class StreamingHandler(BaseCallbackHandler):
-    def on_llm_new_token(self, token: str, **kwargs):
+    def on_llm_new_token(self, token, **kwargs):
         queue.put(token)
 
-    def on_llm_end(self, response: str, **kwargs):
+    def on_llm_end(self, response, **kwargs):
         queue.put(None)
 
-chat = ChatOpenAI(streaming=True, callbacks=[StreamingHandler()])
+    def on_llm_error(self, error, **kwargs):
+        queue.put(None)
+
+chat = ChatOpenAI(
+    streaming=True,
+    callbacks=[StreamingHandler()]
+)
 
 prompt = ChatPromptTemplate.from_messages([
     ("human", "{content}")
@@ -29,8 +36,8 @@ class StreamingChain(LLMChain):
             self(input)
 
         Thread(target=task).start()
-
-        while not queue.empty():
+        
+        while True:
             token = queue.get()
             if token is None:
                 break
@@ -38,5 +45,5 @@ class StreamingChain(LLMChain):
 
 chain = StreamingChain(llm=chat, prompt=prompt)
 
-for output in chain.stream(input = {"content":"tell me a joke"}):
+for output in chain.stream(input={"content": "tell me a joke"}):
     print(output)
